@@ -25,7 +25,7 @@ var sources = {
   },
   'jade':{
     'in':'./site/src/jade/**/*.jade',
-    'out':'./',
+    'out':'./site',
     'opts':{
       'locals': {},
       'pretty': true
