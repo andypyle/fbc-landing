@@ -12,14 +12,14 @@ var gulp = require('gulp'),
 // Set up directories.
 var sources = {
   'sass':{
-    'in':'./src/sass/style.sass',
-    'out':'./styles/',
+    'in':'./site/src/sass/style.sass',
+    'out':'./site/styles/',
     'opts':{
       'outputStyle': 'expanded'
     }
   },
   'jade':{
-    'indexIn':'./src/jade/**/*.jade',
+    'indexIn':'./site/src/jade/**/*.jade',
     'out':'./',
     'opts':{
       'locals': {},
@@ -59,10 +59,10 @@ gulp.task('jade', function(){
 		.pipe(gulp.dest(sources.jade.out));
 });
 
-gulp.task('serve', serve('app'));
+gulp.task('serve', serve('site'));
 
 gulp.task('watch', function(){
-	gulp.watch(['./src/sass/**/*.sass', './src/jade/**/*.jade'], ['sass','jade']);
+	gulp.watch(['./site/src/sass/**/*.sass', './site/src/jade/**/*.jade'], ['sass','jade']);
 });
 
 gulp.task('default', ['sass','jade','serve','watch']);
