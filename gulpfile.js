@@ -124,7 +124,7 @@ gulp.task('images', function() {
 // Gulp-connect
 gulp.task('connect', function(){
   connect.server({
-    root: 'build',
+    root: 'site',
     port: 3000,
     livereload: true
   });
