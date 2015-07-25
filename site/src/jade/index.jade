@@ -12,46 +12,65 @@ html
 		link(rel='shortcut icon', href='/favicon.ico')
 		link(rel='apple-touch-icon', href='apple-touch-icon.png')
 
+		link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=Chelsea+Market|Vollkorn')
+		link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css')
 		link(rel='stylesheet', href='styles/style.min.css')
 
 	body
+		section.cover
+			h1 Flappy
+				span.altColor Bat
+			a(href='#')
+				i.fa.fa-chevron-circle-down.fa-4x
+
 		header
 			.brand
-				h1 Awesome
+				h1 FlappyBat
 
 			nav
+				a.mobileNav(href='#')
+					i.fa.fa-bars.fa-2x
 				ul.navigation
 					li
-						a(href='#') home
+						a(href='#') Home
 					li
-						a(href='#') about
+						a(href='#') About
 					li
-						a(href='#') contact
+						a(href='#') Contact
 
 		section.introduction
-			p Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+			h2 This is Flappy Bat.
+			p Flappy bat is awesome!
 
 		section.features
-			ul
-				li
-					img(src='#')
-					h2 It does this.
-					p Lorem ipsum dolor sit amet.
+			.feature.feature1
+				img(src='http://placekitten.com/g/500/180')
+				h3 It does stuff.
+				p Really cool stuff.
 
-				li
-					img(src='#')
-					h2 It also does magic.
-					p Lorem ipsum amet sit dolor. Magic.
+			.feature.feature2
+				img(src='http://placekitten.com/g/500/180')
+				h3 It also does magic.
+				p  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veritatis, neque. Pariatur doloribus excepturi sunt eligendi rerum omnis, optio sequi blanditiis quia aut! Harum id reprehenderit consequuntur, in accusantium repellat soluta!
 
-				li
-					img(src='#')
-					h2 It's actually a powerful wizard.
-					p Ipsum sit lorem amet.
+			.feature.feature3
+				img(src='http://placekitten.com/g/500/180')
+				h3 It bakes you pies.
+				p Who doesn't love pies?
 
 		section.callToAction
-			a(href='#', target='_BLANK') Play now!
+			a(href='#') Play FlappyBat!
 
 		footer
-			p Social share buttons.
-			span Some more stuff for the footer.
-
+			.share
+				span
+					| Share:
+				ul.social
+					li
+						a(href='#')
+							i.fa.fa-facebook-square.fa-2x
+					li
+						a(href='#')
+							i.fa.fa-twitter-square.fa-2x
+			.other
+				p.copyright Created by Andy Pyle. &copy;2015

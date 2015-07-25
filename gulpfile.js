@@ -12,7 +12,8 @@ var gulp = require('gulp'),
     buffer = require('vinyl-buffer'),
     jade = require('gulp-jade'),
     prefix = require('gulp-autoprefixer'),
-    minifyCSS = require('gulp-minify-css');
+    minifyCSS = require('gulp-minify-css'),
+    connect = require('gulp-connect');
 
 // Set up directories.
 var sources = {
@@ -32,7 +33,8 @@ var sources = {
     }
   },
   'js':{
-    'in':'./site/js/*.js'
+    'in':'./site/js/*.js',
+    'out':'./site/js'
   },
   'img':{
     'in':'./site/img/*'
@@ -44,14 +46,6 @@ var sources = {
     'img':'./build/img'
   }
 }
-
-// JavaScript linting
-gulp.task('jshint', function() {
-  return gulp.src(sources.js.in)
-    .pipe(jshint())
-    .pipe(jshint.reporter('default'));
-});
-/// End JS linting
 
 
 // SASS compiling
@@ -78,7 +72,8 @@ gulp.task('sass', function(){
     .pipe(minifyCSS())
     .pipe(concat('style.min.css'))
     .pipe(gulp.dest(sources.sass.out))
-    .pipe(gulp.dest(sources.build.css));
+    .pipe(gulp.dest(sources.build.css))
+    .pipe(connect.reload());
 });
 /// End SASS
 
@@ -88,18 +83,30 @@ gulp.task('jade', function(){
   gulp.src(sources.jade.in)
 		.pipe(jade(sources.jade.opts))
 		.pipe(gulp.dest(sources.jade.out))
-    .pipe(gulp.dest(sources.build.html));
+    .pipe(gulp.dest(sources.build.html))
+    .pipe(connect.reload());
 });
 /// End jade compiling
 
 
+// JavaScript linting
+gulp.task('jshint', function() {
+  return gulp.src(sources.js.in)
+    .pipe(jshint())
+    .pipe(jshint.reporter('default'));
+});
+/// End JS linting
+
+
 // JavaScript minify
 gulp.task('scripts', function() {
-  return browserify('./site/js/main.js')
+  return browserify('./site/js/*.js')
     .bundle()
     .pipe(source('app.js'))
     .pipe(buffer())
+    .pipe(gulp.dest(sources.build.js))
     .pipe(uglify())
+    .pipe(gulp.dest(sources.js.out))
     .pipe(gulp.dest(sources.build.js));
 });
 /// End JS minify
@@ -114,8 +121,18 @@ gulp.task('images', function() {
 // End image optimization
 
 
+// Gulp-connect
+gulp.task('connect', function(){
+  connect.server({
+    root: 'build',
+    port: 3000,
+    livereload: true
+  });
+});
+
+
 // Build 
-gulp.task('build', ['jshint', 'sass', 'scripts', 'images', 'jade']);
+gulp.task('build', ['jshint', 'sass', 'images', 'jade']);
 // End build
 
 
@@ -124,6 +141,7 @@ gulp.task('build', ['jshint', 'sass', 'scripts', 'images', 'jade']);
 gulp.task('watch', function(){
 	gulp.watch(['./site/src/sass/**/*.sass', './site/src/jade/**/*.jade'], ['sass','jade']);
   gulp.watch('site/js/*.js', ['jshint']);
+  gulp.watch('site/js/main.js', ['scripts']);
 });
 
-gulp.task('default', ['sass','jade','jshint','watch']);
+gulp.task('default', ['connect','sass','jade','jshint','watch']);
