@@ -26,6 +26,11 @@
     "node-bourbon": "^4.2.3",
     "node-neat": "^1.7.2",
     "vinyl-buffer": "^1.0.0",
-    "vinyl-source-stream": "^1.1.0"
+    "vinyl-source-stream": "^1.1.0",
+    "watchify": "^3.3.0"
+  },
+  "dependencies": {
+    "jquery": "^2.1.4",
+    "velocity": "^0.7.2"
   }
 }

@@ -4,6 +4,7 @@ var gulp = require('gulp'),
     sass = require('gulp-sass'),
     imagemin = require('gulp-imagemin'),
     browserify = require('browserify'),
+    watchify = require('watchify'),
     uglify = require('gulp-uglify'),
     minifyHTML = require('gulp-minify-html'),
     concat = require('gulp-concat'),
@@ -33,8 +34,11 @@ var sources = {
     }
   },
   'js':{
-    'in':'./site/js/*.js',
+    'in':'./site/js/main.js',
     'out':'./site/js'
+  },
+  'vendor':{
+    'in':'./bower_components/'
   },
   'img':{
     'in':'./site/img/*'
@@ -100,7 +104,7 @@ gulp.task('jshint', function() {
 
 // JavaScript minify
 gulp.task('scripts', function() {
-  return browserify('./site/js/*.js')
+  return watchify(browserify('./site/js/main.js'))
     .bundle()
     .pipe(source('app.js'))
     .pipe(buffer())
@@ -140,8 +144,9 @@ gulp.task('build', ['jshint', 'sass', 'images', 'jade']);
 
 gulp.task('watch', function(){
 	gulp.watch(['./site/src/sass/**/*.sass', './site/src/jade/**/*.jade'], ['sass','jade']);
-  gulp.watch('site/js/*.js', ['jshint']);
-  gulp.watch('site/js/main.js', ['scripts']);
+  gulp.watch('site/js/main.js', ['jshint','scripts', function(){
+    console.log('Bundling scripts completed.');
+    }]);
 });
 
 gulp.task('default', ['connect','sass','jade','jshint','watch']);

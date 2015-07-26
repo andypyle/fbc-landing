@@ -21,7 +21,7 @@ html
 		section.cover
 			h1 Flappy
 				span.altColor Bat
-			a(href='#')
+			a.scrollBtn(href='#', data-scrollto='#top')
 				i.fa.fa-chevron-circle-down.fa-4x
 
 		header
@@ -39,7 +39,7 @@ html
 					li
 						a(href='#') Contact
 
-		section.introduction
+		section.introduction(id='top')
 			h2 This is Flappy Bat.
 			p Flappy bat is awesome!
 
@@ -90,3 +90,4 @@ html
 				raf(cb);
 			else
 				window.addEventListener('load', cb);
+		script(src='js/app.js')
